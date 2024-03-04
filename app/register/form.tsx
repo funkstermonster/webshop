@@ -18,7 +18,7 @@ export default function Form() {
             // If validation passes, proceed with form submission
             const response = await fetch(`/api/auth/register`, {
                 method: 'POST',
-                body: JSON.stringify({ email, password, confirmPassword })
+                body: JSON.stringify({ email, password })
             });
 
             if (response.ok) {

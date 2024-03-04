@@ -15,7 +15,6 @@ export async function POST(request: NextRequest) {
     data: {
       email: body.email,
       password: body.password,
-      confirmPassword: body.confirmPassword,
     },
   });
   return NextResponse.json(user, { status: 200 });

@@ -17,7 +17,6 @@ model User {
   id  String @id @default(uuid())
   email String @unique
   password String
-  confirmPassword String
 
   RegisteredAt DateTime @default(now())
 }
