@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.4",
     "@nextui-org/react": "^2.2.10",
     "@prisma/client": "^5.10.2",
     "framer-motion": "^11.0.8",
@@ -18,8 +19,9 @@
     "next-auth": "^4.24.6",
     "react": "^18",
     "react-dom": "^18",
+    "react-hook-form": "^7.51.0",
     "sonner": "^1.4.3",
-    "zod": "^3.22.4"
+    "zod": "^3.23.0-canary.20240222T232722"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
