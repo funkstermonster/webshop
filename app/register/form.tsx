@@ -46,7 +46,7 @@ export default function RegisterForm() {
             <h1 className="mb-5 mt-5">Register form</h1>
             <Input {...register("email")} className="mb-5" type="email" label="Email" />
             {errors.email && (
-              <p className="text-red-600 text-sm">{errors.email?.message}</p>
+              <p className="text-red-600 mb-2 text-sm">{errors.email?.message}</p>
             )}
             <Input
               {...register("password")}
@@ -55,7 +55,7 @@ export default function RegisterForm() {
               label="Password"
             />
             {errors.password && (
-              <p className="text-red-600 text-sm">{errors.password?.message}</p>
+              <p className="text-red-600 mb-2 text-sm">{errors.password?.message}</p>
             )}
             <Input
               {...register("confirmPassword")}
@@ -64,7 +64,7 @@ export default function RegisterForm() {
               label="Confirm password"
             />
             {errors.confirmPassword && (
-              <p className="text-red-600 text-sm">{errors.confirmPassword?.message}</p>
+              <p className="text-red-600 mb-2 text-sm">{errors.confirmPassword?.message}</p>
             )}
             <Button className="text-center mb-5" color="primary" type="submit">
               Register

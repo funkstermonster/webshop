@@ -1,3 +1,4 @@
+"use client"
 import { registerFormSchema } from "@/schemas/schema";
 import { Button, Input } from "@nextui-org/react";
 import { signIn } from "next-auth/react";
@@ -19,7 +20,7 @@ export default function Form() {
     return (
         <>
             <Toaster />
-            <form className="flex flex-col gap-2 mx-auto max-w-md mt-10">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-2 mx-auto max-w-md mt-10">
                 <div>
                     <h1 className="mb-5 mt-5">Login</h1>
                     <Input name="email" className="mb-5" type="email" label="Email" />
