@@ -13,6 +13,7 @@ export default function Form() {
         {
             email: formData.get('email'),
             password: formData.get('password'),
+            callbackUrl: `${window.location.origin}`,
             redirect: false
         });
     };
