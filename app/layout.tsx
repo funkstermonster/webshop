@@ -4,6 +4,9 @@ import "./globals.css";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import Logout from "@/logout";
+import Header from "./components/ui/header";
+import Footer from "./components/ui/footer";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,18 +20,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession();
   return (
     <html lang="en">
       <body className={inter.className}>
-        <nav>
-          {!!session && <Logout/>}
-
-          {!session && <Link href="/login">Login</Link>}
-
-          {!session && <Link className="ml-2" href="register">Register</Link>}
-        </nav>
+        <Header/>
         {children}
+        <Footer/>
       </body>
     </html>
   );
