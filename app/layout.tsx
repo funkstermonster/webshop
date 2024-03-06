@@ -25,6 +25,8 @@ export default async function RootLayout({
           {!!session && <Logout/>}
 
           {!session && <Link href="/login">Login</Link>}
+
+          {!session && <Link className="ml-2" href="register">Register</Link>}
         </nav>
         {children}
       </body>
