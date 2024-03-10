@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { getServerSession } from "next-auth";
-import Link from "next/link";
-import Logout from "@/logout";
 import Header from "./components/ui/header";
 import Footer from "./components/ui/footer";
-
+import Providers from "./components/providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,10 +19,12 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Header/>
-        {children}
-        <Footer/>
+      <body className={`${inter.className} h-screen`}>
+        <Providers>
+          <Header />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
