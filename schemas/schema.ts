@@ -29,3 +29,27 @@ export const loginFormSchema = z.object({
     .email({ message: "Not a valid email!" }),
   password: z.string({ required_error: "Password is required!" }),
 });
+
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+];
+const MAX_IMAGE_SIZE = 5000000;
+
+export const productFormSchema = z.object({
+  name: z.string({ required_error: "Name is required!" }),
+  price: z.string({ required_error: "Price is required!" }),
+  description: z.string({ required_error: "Description is required!" }),
+  image: z
+    .any()
+    .refine(
+      (files) => files?.[0]?.size <= MAX_IMAGE_SIZE,
+      `Max image size is 4MB.`
+    )
+    .refine(
+      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+      "Only .jpg, .jpeg, .png and .webp formats are supported."
+    ),
+});
