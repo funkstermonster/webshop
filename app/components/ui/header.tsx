@@ -1,3 +1,4 @@
+"use client";
 import {
   Navbar,
   NavbarBrand,
@@ -6,23 +7,23 @@ import {
   Input,
 } from "@nextui-org/react";
 import { Logo } from "./logo";
-import { getServerSession } from "next-auth";
 import Logout from "@/logout";
 import { SearchIcon } from "lucide-react";
+import { useSession } from "next-auth/react";
 
-export default async function Header() {
-  const session = await getServerSession();
+export default function Header() {
+  const { data: session, status } = useSession();
+  console.log("asssdsadd", session);
   return (
     <Navbar isBordered className="dark">
       <NavbarContent justify="start">
         <NavbarBrand className="mr-4">
           <Link href="/">
-          <Logo />
+            <Logo />
           </Link>
           <p className="hidden sm:block font-bold text-inherit ml-2">
             FUNKSTER
           </p>
-
         </NavbarBrand>
         {!!session && <Logout />}
         {!session && <Link href="/login">Login</Link>}
@@ -49,23 +50,22 @@ export default async function Header() {
         />
         {session ? (
           <ul>
-            {" "}
-            {/* Open ul tag */}
-            <li>
+            {session.user.role === "Admin" ? (
+              <li>
+                <Link href="/admin/dashboard">Dashboard</Link>
+              </li>
+            ) : (
               <Link href="/dashboard">Dashboard</Link>
-            </li>
+            )}
             <li>
               <Link href="/profile">Profile</Link>
             </li>
             <li>
-              <p>Signed in as {session?.user?.email}</p>{" "}
-              {/* Display user's email */}
+              <p>Signed in as {session?.user.role}</p>
             </li>
           </ul>
         ) : (
           <ul>
-            {" "}
-            {/* Open ul tag */}
             <li>
               <Link href="/login">Login</Link>
             </li>

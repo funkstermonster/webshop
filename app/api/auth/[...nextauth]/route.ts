@@ -1,10 +1,13 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { Adapter } from "next-auth/adapters";
 const prisma = new PrismaClient();
 
 const handler = NextAuth({
+  adapter: PrismaAdapter(prisma) as Adapter,
   session: {
     strategy: "jwt",
   },
@@ -25,7 +28,8 @@ const handler = NextAuth({
         password: {},
       },
       async authorize(credentials) {
-        console.log(credentials)
+        console.log(credentials);
+
         try {
           const user = await prisma?.user.findUnique({
             where: {
@@ -38,11 +42,11 @@ const handler = NextAuth({
             //credentials.password == user.password
             (await compare(credentials.password, user.password))
           ) {
-            console.log(user)
+            console.log("asd", user);
 
             return user;
           } else {
-            console.log("user not found / incorrect password")
+            console.log("user not found / incorrect password");
 
             return null;
           }
@@ -53,15 +57,18 @@ const handler = NextAuth({
       },
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async jwt({ token, user }) {
-      return { ...token, ...user };
+   async jwt({ token, user }) {
+      if(user) token.role = user.role
+      return token
     },
-    async session({ session, token, user }) {
-      session.user = token;
-      return session;
-    },
-  },
+    async session({ session, token }) {
+     if(session?.user)  
+      session.user.role = token.role
+      return session
+    }
+  }
 });
 
 export { handler as GET, handler as POST };

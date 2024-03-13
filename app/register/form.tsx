@@ -4,7 +4,7 @@ import { Toaster, toast } from "sonner";
 import { registerFormSchema } from "@/schemas/schema"; // Import your Zod schema
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UserRegisterData } from "@/types/user";
+import { RegisterData } from "@/types/user";
 
 
 export default function RegisterForm() {
@@ -12,9 +12,9 @@ export default function RegisterForm() {
       register,
       handleSubmit,
       formState: { errors },
-    } = useForm<UserRegisterData>({ resolver: zodResolver(registerFormSchema) });
+    } = useForm<RegisterData>({ resolver: zodResolver(registerFormSchema) });
   
-    const onSubmit = async (formData: UserRegisterData) => {
+    const onSubmit = async (formData: RegisterData) => {
       const { email, password, confirmPassword } = formData;
       try {
         registerFormSchema.parse({ email, password, confirmPassword });
