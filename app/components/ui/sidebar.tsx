@@ -11,7 +11,7 @@ export const Sidebar = () => {
     <>
       <li className="flex items-center hover:bg-gray-700 cursor-pointer">
         <ShoppingBasket />
-        <Link href="/admin/add-product" className="text-inherit">
+        <Link href="/admin/product" className="text-inherit">
           <span>Add Product</span>
         </Link>
       </li>

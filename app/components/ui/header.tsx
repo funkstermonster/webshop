@@ -13,7 +13,6 @@ import { useSession } from "next-auth/react";
 
 export default function Header() {
   const { data: session, status } = useSession();
-  console.log("asssdsadd", session);
   return (
     <Navbar isBordered className="dark">
       <NavbarContent justify="start">

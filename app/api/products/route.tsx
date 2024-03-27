@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
         name: body.name,
         price: body.price,
         description: body.description,
-        imageUrl: body.imageUrl, // Make sure imageUrl is part of the schema
+        imageUrl: body.imageUrl
       },
     });
 
