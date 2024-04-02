@@ -52,9 +52,10 @@ export default function ProductForm() {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-2 mx-auto max-w-md mt-10">
-          <Input type="text" label="Product name" {...register("name")} />
-          <Input type="number" label="Price" {...register("price")} />
+          <Input className="dark" type="text" label="Product name" {...register("name")} />
+          <Input className="dark" type="number" label="Price" {...register("price")} />
           <Textarea
+          className="dark"
             value={value}
             onValueChange={setValue}
             isInvalid={value.length > 10}
@@ -80,7 +81,7 @@ export default function ProductForm() {
               </Button>
             )}
           </CldUploadWidget>
-          <Button className="text-center mb-5" type="submit">
+          <Button className="dark text-center mb-5" type="submit">
             Upload a Product
           </Button>
         </div>
