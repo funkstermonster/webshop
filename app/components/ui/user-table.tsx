@@ -11,8 +11,16 @@ import {
   TableCell,
   getKeyValue,
   Pagination,
+  Button,
+  DropdownTrigger,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem,
 } from "@nextui-org/react";
 import React from "react";
+import { NotepadText } from "lucide-react";
+
+
 
 interface RegisteredUsersProps {
   registeredUsers: User[];
@@ -35,6 +43,7 @@ const columns = [
     key: "registeredAt",
     label: "REGISTERED AT",
   },
+  { key: "actions", label: "ACTIONS" },
 ];
 
 export function TableForUser({ registeredUsers }: RegisteredUsersProps) {
@@ -78,16 +87,9 @@ export function TableForUser({ registeredUsers }: RegisteredUsersProps) {
     fetchUsers();
   }, []);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>{error}</p>;
-  }
-
   return (
     <Table
+      selectionMode="multiple"
       aria-label="Example table with dynamic content"
       className="dark"
       bottomContent={
@@ -119,6 +121,7 @@ export function TableForUser({ registeredUsers }: RegisteredUsersProps) {
           </TableRow>
         )}
       </TableBody>
+      
     </Table>
   );
 }
