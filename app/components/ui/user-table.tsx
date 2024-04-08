@@ -18,8 +18,7 @@ import {
   DropdownItem,
 } from "@nextui-org/react";
 import React from "react";
-import { NotepadText } from "lucide-react";
-
+import { Eye, Pencil, Trash2 } from "lucide-react";
 
 
 interface RegisteredUsersProps {
@@ -87,9 +86,37 @@ export function TableForUser({ registeredUsers }: RegisteredUsersProps) {
     fetchUsers();
   }, []);
 
+
+  const deleteUser = async (userId: any) => {
+    try {
+      const response = await fetch(`/api/user/${userId}`, { method: 'DELETE' });
+      if (!response.ok) {
+        throw new Error('Failed to delete user');
+      }
+      // Remove the deleted user from the local state
+      setUsers(users.filter(user => user.id !== userId));
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      // Handle error if necessary
+    }
+  };
+
+  const renderActions = (item: any) => (
+    <div className="relative flex items-center gap-2">
+      <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+      <Eye />
+      </span>
+      <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+      <Pencil />
+      </span>
+      <span className="text-lg text-danger cursor-pointer active:opacity-50">
+      <Trash2 onClick={() => deleteUser(item.id)}/>
+      </span>
+    </div>
+  );
+
   return (
     <Table
-      selectionMode="multiple"
       aria-label="Example table with dynamic content"
       className="dark"
       bottomContent={
@@ -105,7 +132,7 @@ export function TableForUser({ registeredUsers }: RegisteredUsersProps) {
           />
         </div>
       }
-      classNames={{ wrapper: "min-h-[222px" }}
+      classNames={{ wrapper: "min-h-[222px]" }}
     >
       <TableHeader columns={columns}>
         {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
@@ -115,13 +142,12 @@ export function TableForUser({ registeredUsers }: RegisteredUsersProps) {
           <TableRow key={item.id}>
             {columns.map((column) => (
               <TableCell key={column.key}>
-                {getKeyValue(item, column.key)}
+                {column.key === "actions" ? renderActions(item) : getKeyValue(item, column.key)}
               </TableCell>
             ))}
           </TableRow>
         )}
       </TableBody>
-      
     </Table>
   );
 }
