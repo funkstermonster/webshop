@@ -1,25 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { User } from "@/types/user";
-import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  getKeyValue,
-  Pagination,
-  Button,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
-} from "@nextui-org/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Eye, Pencil, Trash2 } from "lucide-react";
-
+import { User } from "@/types/user";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue, Pagination } from "@nextui-org/react";
+import Modal from "./modal";
 
 interface RegisteredUsersProps {
   registeredUsers: User[];
@@ -49,8 +34,10 @@ export function TableForUser({ registeredUsers }: RegisteredUsersProps) {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = useState(1);
   const rowsPerPage = 5;
 
   const pages = Math.ceil(users.length / rowsPerPage);
@@ -58,7 +45,6 @@ export function TableForUser({ registeredUsers }: RegisteredUsersProps) {
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
-
     return users.slice(start, end);
   }, [page, users]);
 
@@ -86,68 +72,80 @@ export function TableForUser({ registeredUsers }: RegisteredUsersProps) {
     fetchUsers();
   }, []);
 
-
   const deleteUser = async (userId: any) => {
     try {
-      const response = await fetch(`/api/user/${userId}`, { method: 'DELETE' });
+      const response = await fetch(`/api/user/${userId}`, { method: "DELETE" });
       if (!response.ok) {
-        throw new Error('Failed to delete user');
+        throw new Error("Failed to delete user");
       }
       // Remove the deleted user from the local state
-      setUsers(users.filter(user => user.id !== userId));
+      setUsers(prevUsers => prevUsers.filter((user) => user.id !== userId));
     } catch (error) {
-      console.error('Error deleting user:', error);
+      console.error("Error deleting user:", error);
       // Handle error if necessary
     }
   };
+  
 
   const renderActions = (item: any) => (
     <div className="relative flex items-center gap-2">
       <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-      <Eye />
+        <Eye />
       </span>
       <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-      <Pencil />
+        <Pencil />
       </span>
-      <span className="text-lg text-danger cursor-pointer active:opacity-50">
-      <Trash2 onClick={() => deleteUser(item.id)}/>
+      <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => { setSelectedUserId(item.id); setIsModalOpen(true); }}>
+        <Trash2 />
       </span>
     </div>
   );
 
   return (
-    <Table
-      aria-label="Example table with dynamic content"
-      className="dark"
-      bottomContent={
-        <div className="flex w-full justify-center">
-          <Pagination
-            isCompact
-            showControls
-            showShadow
-            color="secondary"
-            page={page}
-            total={pages}
-            onChange={(page) => setPage(page)}
-          />
-        </div>
-      }
-      classNames={{ wrapper: "min-h-[222px]" }}
-    >
-      <TableHeader columns={columns}>
-        {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
-      </TableHeader>
-      <TableBody items={items}>
-        {(item) => (
-          <TableRow key={item.id}>
-            {columns.map((column) => (
-              <TableCell key={column.key}>
-                {column.key === "actions" ? renderActions(item) : getKeyValue(item, column.key)}
-              </TableCell>
-            ))}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+    <>
+      <Table
+        aria-label="Example table with dynamic content"
+        className="dark"
+        bottomContent={
+          <div className="flex w-full justify-center">
+            <Pagination
+              isCompact
+              showControls
+              showShadow
+              color="secondary"
+              page={page}
+              total={pages}
+              onChange={(page) => setPage(page)}
+            />
+          </div>
+        }
+        classNames={{ wrapper: "min-h-[222px]" }}
+      >
+        <TableHeader columns={columns}>
+          {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
+        </TableHeader>
+        <TableBody items={items}>
+          {(item) => (
+            <TableRow key={item.id}>
+              {columns.map((column) => (
+                <TableCell key={column.key}>
+                  {column.key === "actions" ? renderActions(item) : getKeyValue(item, column.key)}
+                </TableCell>
+              ))}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        modalHeaderTitle="Delete User?"
+        modalBodyText1="Are you sure you want to delete this user?"
+        modalBodyText2="This action cannot be reverted!"
+        modalFooterButtonClose="Cancel"
+        modalFooterButtonOk="Delete"
+        onDelete={() => { deleteUser(selectedUserId); setIsModalOpen(false); }}
+      />
+    </>
   );
 }
