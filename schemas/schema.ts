@@ -43,3 +43,13 @@ export const productFormSchema = z.object({
   price: z.number({ required_error: "Price is required!" }),
   description: z.string({ required_error: "Description is required!" }),
 });
+
+export const userProfileSchema = z.object({
+  firstName: z.string({ required_error: "First name is required!"}),
+  lastName: z.string({ required_error: "Last name is required!"}),
+  city: z.string({ required_error: "City is required!"}),
+  street: z.string({ required_error: "Street name is required!"}),
+  streetNumber: z.number({required_error: "Street number is required!"}),
+  mobileNumber: z.number({required_error: "Mobile number is required!"}),
+  comment: z.optional(z.string()),
+})

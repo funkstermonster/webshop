@@ -144,7 +144,7 @@ export function TableForUser({ registeredUsers }: RegisteredUsersProps) {
         modalBodyText2="This action cannot be reverted!"
         modalFooterButtonClose="Cancel"
         modalFooterButtonOk="Delete"
-        onDelete={() => { deleteUser(selectedUserId); setIsModalOpen(false); }}
+        onAction={() => { deleteUser(selectedUserId); setIsModalOpen(false); }}
       />
     </>
   );

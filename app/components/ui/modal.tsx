@@ -9,7 +9,7 @@ interface ModalTextProps {
     modalBodyText2: string;
     modalFooterButtonClose: string;
     modalFooterButtonOk: string;
-    onDelete: () => void; // Add this prop
+    onAction: () => void;
 }
 
 const SharedModal: React.FC<ModalTextProps> = ({ 
@@ -20,11 +20,11 @@ const SharedModal: React.FC<ModalTextProps> = ({
     modalBodyText2, 
     modalFooterButtonClose, 
     modalFooterButtonOk,
-    onDelete // Destructure the onDelete prop
+    onAction
 }) => {
     const handleDelete = async () => {
-        onDelete(); // Call the onDelete function passed from the parent component
-        onClose(); // Close the modal
+        onAction();
+        onClose();
     };
 
     return (

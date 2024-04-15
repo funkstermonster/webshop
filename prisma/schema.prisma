@@ -28,7 +28,6 @@ model Profile {
   lastName     String
   city         String
   street       String
-  streetType   String
   streetNumber Int
   mobileNumber Int
 
