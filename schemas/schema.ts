@@ -49,7 +49,6 @@ export const userProfileSchema = z.object({
   lastName: z.string({ required_error: "Last name is required!"}),
   city: z.string({ required_error: "City is required!"}),
   street: z.string({ required_error: "Street name is required!"}),
-  streetNumber: z.number({required_error: "Street number is required!"}),
-  mobileNumber: z.number({required_error: "Mobile number is required!"}),
-  comment: z.optional(z.string()),
+  streetNumber: z.string({required_error: "Street number is required!"}),
+  mobileNumber: z.string({required_error: "Mobile number is required!"}),
 })
