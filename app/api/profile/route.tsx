@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
         street: body.street,
         streetNumber: body.streetNumber,
         mobileNumber: body.mobileNumber,
-        comment: body.comment,
+        user: body.user,
       },
     });
 
