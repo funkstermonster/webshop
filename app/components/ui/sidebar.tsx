@@ -44,7 +44,7 @@ export const Sidebar = () => {
   );
 
   return (
-    <div className="flex flex-col bg-gray-800 ml-6 mt-2 pl-1 w-48 rounded-md">
+    <div className="flex flex-col bg-gray-800 w-48 rounded-md p-3 h-screen">
       {session ? (
         <ul className="space-y-2 mt-2 mb-2">
           {session.user.role === "Admin" ? adminSidebar : userSidebar}
@@ -56,4 +56,4 @@ export const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default Sidebar

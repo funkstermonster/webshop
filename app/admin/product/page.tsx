@@ -50,42 +50,58 @@ export default function ProductForm() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col gap-2 mx-auto max-w-md mt-10">
-          <Input className="dark" type="text" label="Product name" {...register("name")} />
-          <Input className="dark" type="number" label="Price" {...register("price")} />
-          <Textarea
-          className="dark"
-            value={value}
-            onValueChange={setValue}
-            isInvalid={value.length > 10}
-            variant="bordered"
-            placeholder="Enter your description"
-            type="text"
-            {...register("description")}
-            label="Description"
-            errorMessage= {value.length > 10 ? "The description should be maximum 10 characters long." : ""} 
-          />
-          <h1>Upload an image</h1>
-          <CldUploadWidget
-            uploadPreset="qwut2dzj"
-            options={{
-              sources: ["local"],
-              multiple: false,
-            }}
-            onSuccess={handleUploadSuccess}
-          >
-            {({ open }) => (
-              <Button color="primary" onClick={() => open()}>
-                Upload
-              </Button>
-            )}
-          </CldUploadWidget>
-          <Button className="dark text-center mb-5" type="submit">
-            Upload a Product
-          </Button>
-        </div>
-      </form>
+      <div className="flex w-full flex-col">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex flex-col gap-2 mx-auto max-w-md mt-10">
+            <Input
+              className="dark"
+              type="text"
+              label="Product name"
+              {...register("name")}
+            />
+            <Input
+              className="dark"
+              type="number"
+              label="Price"
+              {...register("price")}
+            />
+            <Textarea
+              className="dark"
+              value={value}
+              onValueChange={setValue}
+              isInvalid={value.length > 10}
+              variant="bordered"
+              placeholder="Enter your description"
+              type="text"
+              {...register("description")}
+              label="Description"
+              errorMessage={
+                value.length > 10
+                  ? "The description should be maximum 10 characters long."
+                  : ""
+              }
+            />
+            <h1>Upload an image</h1>
+            <CldUploadWidget
+              uploadPreset="qwut2dzj"
+              options={{
+                sources: ["local"],
+                multiple: false,
+              }}
+              onSuccess={handleUploadSuccess}
+            >
+              {({ open }) => (
+                <Button color="primary" onClick={() => open()}>
+                  Upload
+                </Button>
+              )}
+            </CldUploadWidget>
+            <Button className="dark text-center mb-5" type="submit">
+              Upload a Product
+            </Button>
+          </div>
+        </form>
+      </div>
     </>
   );
 }

@@ -165,5 +165,5 @@ export default function Home() {
         commodo eu porta pellentesque rutrum fames ut. Senectus sapien!
       </p>
     </div>
-  );
+  )
 }

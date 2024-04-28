@@ -51,7 +51,7 @@ export default function Header() {
           <ul>
             {session.user.role === "Admin" ? (
               <li>
-                <Link href="/admin/dashboard">Dashboard</Link>
+                <Link href="/admin/product">Dashboard</Link>
               </li>
             ) : (
               <Link href="/dashboard">Dashboard</Link>
@@ -75,5 +75,5 @@ export default function Header() {
         )}
       </NavbarContent>
     </Navbar>
-  );
+  )
 }

@@ -3,12 +3,16 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --global-color-primary: #DCD6F7;
+  --global-color-secondary: #A6B1E1;
+  --global-color-tertiary: #B4869F;
+  --global-color-quaternary: #985F6F;
+  --global-color-quinary: #4E4C67;
+  --global-text-primary: #fff;
+  --global-text-secondary: #000;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
@@ -30,4 +34,4 @@ body {
   .text-balance {
     text-wrap: balance;
   }
-}
+} */

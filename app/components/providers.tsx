@@ -7,9 +7,9 @@ import React from "react";
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <SessionProvider>
-      <NextUIProvider>{children}</NextUIProvider>;
+      <NextUIProvider>{children}</NextUIProvider>
     </SessionProvider>
   );
 };
 
-export default Providers;
+export default Providers
