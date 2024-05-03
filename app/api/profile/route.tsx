@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validation = userProfileSchema.safeParse(body);
     if (!validation.success) {
-      // Handle validation errors (e.g., return an error response)
+
       return new NextResponse(validation.error.message, { status: 400 });
     }
     const profile = await prisma.profile.create({

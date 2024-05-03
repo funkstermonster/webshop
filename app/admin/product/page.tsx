@@ -1,13 +1,14 @@
 "use client";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Input, Textarea } from "@nextui-org/react";
 import { CldUploadWidget } from "next-cloudinary";
 import { toast } from "sonner";
 import { productFormSchema } from "@/schemas/schema";
 import { Productdata } from "@/types/product";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
+import { Input, Textarea } from "@nextui-org/input";
+import { Button } from "@nextui-org/button";
 
 export default function ProductForm() {
   const [value, setValue] = React.useState("");
@@ -54,19 +55,16 @@ export default function ProductForm() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-2 mx-auto max-w-md mt-10">
             <Input
-              className="dark"
+              color="warning"
               type="text"
               label="Product name"
-              {...register("name")}
             />
             <Input
-              className="dark"
               type="number"
               label="Price"
-              {...register("price")}
+
             />
             <Textarea
-              className="dark"
               value={value}
               onValueChange={setValue}
               isInvalid={value.length > 10}
@@ -91,12 +89,12 @@ export default function ProductForm() {
               onSuccess={handleUploadSuccess}
             >
               {({ open }) => (
-                <Button color="primary" onClick={() => open()}>
+                <Button color="primary" onClick={() => open()} className="bg-eggplant">
                   Upload
                 </Button>
               )}
             </CldUploadWidget>
-            <Button className="dark text-center mb-5" type="submit">
+            <Button className="text-center mb-5 bg-violet-ultra text-white" type="submit">
               Upload a Product
             </Button>
           </div>

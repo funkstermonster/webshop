@@ -1,20 +1,17 @@
 "use client";
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  Link,
-  Input,
-} from "@nextui-org/react";
+
+import { Input } from "@nextui-org/input";
 import { Logo } from "./logo";
 import Logout from "@/logout";
+import { Navbar, NavbarBrand, NavbarContent } from "@nextui-org/navbar";
 import { SearchIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 export default function Header() {
   const { data: session, status } = useSession();
   return (
-    <Navbar isBordered className="dark">
+    <Navbar isBordered className="bg-gradient-to-t from-eggplant to-puce text-white py-4">
       <NavbarContent justify="start">
         <NavbarBrand className="mr-4">
           <Link href="/">
@@ -43,6 +40,7 @@ export default function Header() {
               "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
           }}
           placeholder="Type to search..."
+          
           size="sm"
           startContent={<SearchIcon size={18} />}
           type="search"

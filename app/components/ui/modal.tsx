@@ -1,5 +1,6 @@
+import { Button } from '@nextui-org/button';
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/modal';
 import React from 'react';
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from '@nextui-org/react';
 
 interface ModalTextProps {
     isOpen: boolean;

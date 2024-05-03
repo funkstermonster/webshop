@@ -3,8 +3,9 @@
 import React, { useEffect, useState } from "react";
 import { Eye, Pencil, Trash2 } from "lucide-react";
 import { User } from "@/types/user";
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue, Pagination } from "@nextui-org/react";
 import Modal from "./modal";
+import { getKeyValue, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/table";
+import { Pagination } from "@nextui-org/pagination";
 
 interface RegisteredUsersProps {
   registeredUsers: User[];
@@ -105,7 +106,6 @@ export function TableForUser({ registeredUsers }: RegisteredUsersProps) {
     <>
       <Table
         aria-label="Example table with dynamic content"
-        className="dark"
         bottomContent={
           <div className="flex w-full justify-center">
             <Pagination
